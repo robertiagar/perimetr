@@ -5,9 +5,12 @@
     xmlns:local="using:Perimetr.WindowsUniversal.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Maps:MapControl MapServiceToken="wQZskbWkOuz479a2WkfM~tycybrDG-25d10KWDDS7IQ~AvXIWEUL2rqVZj_1rQOVjIn_VEmtAYiBQ8hIWenatG7f47fjMmeVyw2usC02y6aa">
+            
+        </Maps:MapControl>
     </Grid>
 </Page>

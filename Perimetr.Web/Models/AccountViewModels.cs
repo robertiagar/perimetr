@@ -50,4 +50,18 @@ namespace Perimetr.Web.Models
 
         public string ProviderKey { get; set; }
     }
+
+    public class FriendViewModels
+    {
+        public string Id { get; set; }
+        public LocationViewModel Location { get; set; }
+    }
+
+    public class LocationViewModel
+    {
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public double Altitude { get; set; }
+        public DateTime LastUpdated { get; set; }
+    }
 }
