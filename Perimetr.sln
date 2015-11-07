@@ -5,18 +5,63 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Perimetr.Web", "Perimetr.Web\Perimetr.Web.csproj", "{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Perimetr.Clients", "Perimetr.Clients", "{974D9BE9-0609-4C48-B850-07092842DF0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Perimetr.WindowsUniversal", "Perimetr.WindowsUniversal\Perimetr.WindowsUniversal.csproj", "{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Debug|ARM.Build.0 = Debug|Any CPU
+		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Debug|x64.Build.0 = Debug|Any CPU
+		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Debug|x86.Build.0 = Debug|Any CPU
 		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Release|ARM.ActiveCfg = Release|Any CPU
+		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Release|ARM.Build.0 = Release|Any CPU
+		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Release|x64.ActiveCfg = Release|Any CPU
+		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Release|x64.Build.0 = Release|Any CPU
+		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Release|x86.ActiveCfg = Release|Any CPU
+		{1C82FD5E-7CFE-4C70-825F-772EC2E901D7}.Release|x86.Build.0 = Release|Any CPU
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Debug|ARM.ActiveCfg = Debug|ARM
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Debug|ARM.Build.0 = Debug|ARM
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Debug|ARM.Deploy.0 = Debug|ARM
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Debug|x64.ActiveCfg = Debug|x64
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Debug|x64.Build.0 = Debug|x64
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Debug|x64.Deploy.0 = Debug|x64
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Debug|x86.ActiveCfg = Debug|x86
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Debug|x86.Build.0 = Debug|x86
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Debug|x86.Deploy.0 = Debug|x86
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Release|Any CPU.ActiveCfg = Release|x86
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Release|ARM.ActiveCfg = Release|ARM
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Release|ARM.Build.0 = Release|ARM
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Release|ARM.Deploy.0 = Release|ARM
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Release|x64.ActiveCfg = Release|x64
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Release|x64.Build.0 = Release|x64
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Release|x64.Deploy.0 = Release|x64
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Release|x86.ActiveCfg = Release|x86
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Release|x86.Build.0 = Release|x86
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9E37E2EE-70E2-4D71-87FE-77F5BFB81C77} = {974D9BE9-0609-4C48-B850-07092842DF0E}
 	EndGlobalSection
 EndGlobal
