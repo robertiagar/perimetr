@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using Perimetr.Web.Models;
 using Perimetr.Web.Providers;
 using Perimetr.Web.Results;
+using System.Linq;
 
 namespace Perimetr.Web.Controllers
 {
@@ -62,7 +63,7 @@ namespace Perimetr.Web.Controllers
             {
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
             };
         }
 
@@ -78,7 +79,7 @@ namespace Perimetr.Web.Controllers
         [Route("ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {
-            IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
 
             if (user == null)
             {
@@ -110,7 +111,10 @@ namespace Perimetr.Web.Controllers
                 LocalLoginProvider = LocalLoginProvider,
                 Email = user.UserName,
                 Logins = logins,
-                ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
+                ExternalLoginProviders = GetExternalLogins(returnUrl, generateState),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Location = user.Location
             };
         }
 
@@ -125,7 +129,7 @@ namespace Perimetr.Web.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -258,9 +262,9 @@ namespace Perimetr.Web.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -328,7 +332,7 @@ namespace Perimetr.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -338,6 +342,34 @@ namespace Perimetr.Web.Controllers
             }
 
             return Ok();
+        }
+
+        [Route("UpdateInfo")]
+        public async Task<IHttpActionResult> UpdateInfo(UpdateInfoBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+
+            var updateResult = await UserManager.UpdateAsync(user);
+
+            if (updateResult.Succeeded)
+            {
+                return Ok();
+            }
+
+            return InternalServerError(new Exception(string.Join("\n\r", updateResult.Errors.ToArray())));
         }
 
         // POST api/Account/RegisterExternal
@@ -368,7 +400,7 @@ namespace Perimetr.Web.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }

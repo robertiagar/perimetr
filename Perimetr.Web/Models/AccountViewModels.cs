@@ -20,9 +20,15 @@ namespace Perimetr.Web.Models
 
         public string Email { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         public IEnumerable<UserLoginInfoViewModel> Logins { get; set; }
 
         public IEnumerable<ExternalLoginViewModel> ExternalLoginProviders { get; set; }
+
+        public LocationModel Location { get; set; }
     }
 
     public class UserInfoViewModel
@@ -32,6 +38,10 @@ namespace Perimetr.Web.Models
         public bool HasRegistered { get; set; }
 
         public string LoginProvider { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
     }
 
     public class UserLoginInfoViewModel
