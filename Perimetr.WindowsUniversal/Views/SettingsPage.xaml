@@ -10,7 +10,9 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           EntranceNavigationTransitionInfo.IsTargetElement="True">
 
-        <TextBlock Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Settings"/>
-
+        <ToggleSwitch Header ="Location" OnContent="on" OffContent="off">
+          
+            
+        </ToggleSwitch>
     </Grid>
 </Page>
