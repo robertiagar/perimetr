@@ -1,0 +1,43 @@
+﻿<Page
+    x:Class="Perimetr.WindowsUniversal.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Perimetr.WindowsUniversal.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Login, Source={StaticResource Locator}}">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Send" Label="sign in" Command="{Binding  LoginCommand}"/>
+            <AppBarButton Icon="Cancel" Label="cancel"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid Margin="0,48,0,0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="SignInText"
+                   Grid.Row="0"
+                   Margin="9,28,10,9"
+                   Text="sign into Perimtr"
+                   Style="{StaticResource PageTitleTextBlockStyle}"/>
+        <TextBox Grid.Row="1"
+                 Header="username / email" 
+                 Width="Auto"
+                 Margin="9,0,9,0"
+                 Padding="4"
+                 PlaceholderText="username / email"
+                 Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <PasswordBox Grid.Row="2"
+                     Header="password" 
+                     Width="Auto"
+                     Margin="9,0,9,0"
+                     Padding="4"
+                     PlaceholderText="password"
+                     Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</Page>

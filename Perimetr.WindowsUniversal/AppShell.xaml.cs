@@ -32,25 +32,18 @@ namespace Perimetr.WindowsUniversal
                     Label = "Friends",
                     DestinationPage = typeof(Views.FriendsPage)
                 },
-
-               
-
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Map,
                     Label = "Map",
                     DestinationPage = typeof(Views.MapPage)
                 },
-
-                
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Comment,
                     Label = "About",
                     DestinationPage = typeof(Views.AboutPage)
                 },
-
-                
             });
 
         public static AppShell Current = null;
