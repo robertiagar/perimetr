@@ -25,31 +25,32 @@ namespace Perimetr.WindowsUniversal
         private List<NavMenuItem> navlist = new List<NavMenuItem>(
             new[]
             {
+
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Contact,
-                    Label = "Page1",
-                    DestinationPage = typeof(Views.Page1)
+                    Symbol = Symbol.People,
+                    Label = "Friends",
+                    DestinationPage = typeof(Views.FriendsPage)
                 },
+
+               
+
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Edit,
-                    Label = "Page2",
-                    DestinationPage = typeof(Views.Page2)
+                    Symbol = Symbol.Map,
+                    Label = "Map",
+                    DestinationPage = typeof(Views.MapPage)
                 },
+
+                
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Favorite,
-                    Label = "Page3",
-                    DestinationPage = typeof(Views.Page3)
+                    Symbol = Symbol.Comment,
+                    Label = "About",
+                    DestinationPage = typeof(Views.AboutPage)
                 },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.Link,
-                    Label = "Download Source Code",
-                    DestinationPage = typeof(Uri),
-                    Arguments = "http://scottge.net/product/uwp-windows-10-sample-navigation-panes",
-                }
+
+                
             });
 
         public static AppShell Current = null;
