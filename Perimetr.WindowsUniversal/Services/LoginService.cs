@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -31,7 +33,10 @@ namespace Perimetr.WindowsUniversal.Services
 
             if (response.EnsureSuccessStatusCode().IsSuccessStatusCode)
             {
-                var responseJson = await response.Content.ReadAsStringAsync();
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var json = JObject.Parse(jsonString);
+
+                return (string)json["access_token"];
             }
 
             return string.Empty;

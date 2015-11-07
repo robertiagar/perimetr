@@ -16,7 +16,7 @@ namespace Perimetr.Web.Models
         public string LastName { get; set; }
 
         public virtual IList<GeofenceModel> Geofences { get; set; }
-        public virtual IList<string> FriendIds { get; set; }
+        public virtual IList<ApplicationUser> Friends { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {

@@ -243,6 +243,10 @@
     <Compile Include="Migrations\201511071259319_Updated-LocationModel-Added-LastUpdated.Designer.cs">
       <DependentUpon>201511071259319_Updated-LocationModel-Added-LastUpdated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511072221531_updated-application-user.cs" />
+    <Compile Include="Migrations\201511072221531_updated-application-user.Designer.cs">
+      <DependentUpon>201511072221531_updated-application-user.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -331,6 +335,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511071259319_Updated-LocationModel-Added-LastUpdated.resx">
       <DependentUpon>201511071259319_Updated-LocationModel-Added-LastUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511072221531_updated-application-user.resx">
+      <DependentUpon>201511072221531_updated-application-user.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

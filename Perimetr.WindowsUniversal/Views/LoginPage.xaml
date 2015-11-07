@@ -5,15 +5,14 @@
     xmlns:local="using:Perimetr.WindowsUniversal.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d"
     DataContext="{Binding Login, Source={StaticResource Locator}}">
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Icon="Send" Label="sign in" Command="{Binding  LoginCommand}"/>
-            <AppBarButton Icon="Cancel" Label="cancel"/>
+            <AppBarButton Icon="Send" Label="sign in" Command="{Binding LoginCommand, Mode=OneWay}"/>
         </CommandBar>
     </Page.BottomAppBar>
-
     <Grid Margin="0,48,0,0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

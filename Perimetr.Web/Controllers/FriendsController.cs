@@ -42,9 +42,8 @@ namespace Perimetr.Web.Controllers
 
         public async Task<IHttpActionResult> Get()
         {
-            var userId = User.Identity.GetUserId();
-
-            var friends = await UserManager.Users.Where(u => u.FriendIds.Contains(userId)).ToListAsync();
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            var friends = user.Friends;
             var friendsViewModel = new List<FriendViewModels>();
 
             foreach (var friend in friends)
@@ -74,7 +73,7 @@ namespace Perimetr.Web.Controllers
 
             if (friend != null)
             {
-                user.FriendIds.Add(friend.Id);
+                user.Friends.Add(friend);
 
                 return Ok();
             }

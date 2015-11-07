@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Perimetr.WindowsUniversal.Messages;
 using Perimetr.WindowsUniversal.Services;
+using Perimetr.WindowsUniversal.Views;
 using System.Diagnostics;
 using System.Windows.Input;
 
@@ -11,20 +13,25 @@ namespace Perimetr.WindowsUniversal.ViewModels
     {
         private string username;
         private string password;
-        private ILoginService loging;
 
-        public LoginViewModel(ILoginService login)
+        private ILoginService loginService;
+        private ISettingsService settingsService;
+
+        public LoginViewModel(ILoginService loginService, ISettingsService settingsService)
         {
-            this.loging = login;
+            this.loginService = loginService;
+            this.settingsService = settingsService;
             this.LoginCommand = new RelayCommand(async () =>
             {
                 Debug.WriteLine("Login...");
-                var t = await login.GetAccessTokenAsync(Username, Password);
+                var token = await loginService.GetAccessTokenAsync(Username, Password);
+                await this.settingsService.SaveItemAsync(token, "access_token");
+
+                Messenger.Default.Send(new NavigationMessage(typeof(FriendsPage), null));
             });
         }
 
         public ICommand LoginCommand { get; private set; }
-        public ICommand CancelCommand { get; private set; }
 
         public string Username
         {
@@ -43,7 +50,5 @@ namespace Perimetr.WindowsUniversal.ViewModels
                 Set(nameof(Password), ref password, value);
             }
         }
-
-
     }
 }

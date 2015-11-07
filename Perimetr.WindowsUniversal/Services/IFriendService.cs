@@ -10,7 +10,7 @@ namespace Perimetr.WindowsUniversal.Services
     {
         Task AddFriendAsync(string friendId);
         Task<IEnumerable<FriendView>> GetFriendsAsync();
-        Task<IEnumerable<ContactView>> FindFriendAsync(IEnumerable<ContactBinding> contacts);
+        Task<IEnumerable<ContactView>> FindFriendsAsync(IEnumerable<ContactBinding> contacts);
     }
 
     public class ContactBinding

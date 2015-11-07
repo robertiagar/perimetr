@@ -11,6 +11,7 @@ namespace Perimetr.WindowsUniversal.ViewModels
 {
     class ViewModelLocator
     {
+        private readonly string baseUrl = "http://localhost:59928/";
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
@@ -18,7 +19,16 @@ namespace Perimetr.WindowsUniversal.ViewModels
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<ILoginService>(() =>
             {
-                return new LoginService("http://localhost:59928/");
+                return new LoginService(baseUrl);
+            });
+
+            SimpleIoc.Default.Register<ISettingsService>(() =>
+            {
+                return new SettingsService();
+            });
+            SimpleIoc.Default.Register<IFriendService>(() =>
+            {
+                return new FriendService(SimpleIoc.Default.GetInstance<ISettingsService>(), baseUrl);
             });
         }
 

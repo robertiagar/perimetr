@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Perimetr.WindowsUniversal.Controls;
 using Perimetr.WindowsUniversal.Views;
+using GalaSoft.MvvmLight.Messaging;
+using Perimetr.WindowsUniversal.Messages;
 
 namespace Perimetr.WindowsUniversal
 {
@@ -73,6 +75,8 @@ namespace Perimetr.WindowsUniversal
             }
 
             NavMenuList.ItemsSource = navlist;
+
+            Messenger.Default.Register<NavigationMessage>(this, message => this.NavigateTo(message));
         }
 
         public Frame AppFrame { get { return this.frame; } }
@@ -252,6 +256,11 @@ namespace Perimetr.WindowsUniversal
             ((Page)sender).Focus(FocusState.Programmatic);
             ((Page)sender).Loaded -= Page_Loaded;
             this.CheckTogglePaneButtonSizeChanged();
+        }
+
+        private void NavigateTo(NavigationMessage message)
+        {
+            this.AppFrame.Navigate(message.DestinationPage, message.Arguments);
         }
 
         #endregion
