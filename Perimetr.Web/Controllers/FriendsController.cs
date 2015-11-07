@@ -13,10 +13,15 @@ using System.Web.Http;
 namespace Perimetr.Web.Controllers
 {
     [Authorize]
-    [Route("api/Friends")]
+    [RoutePrefix("api/Friends")]
     public class FriendsController : ApiController
     {
         private ApplicationUserManager _userManager;
+
+        public FriendsController()
+        {
+        }
+
 
         public FriendsController(ApplicationUserManager userManager)
         {
@@ -77,6 +82,7 @@ namespace Perimetr.Web.Controllers
             return BadRequest("User does not exist");
         }
 
+        [Route("FindFriends")]
         public async Task<IHttpActionResult> FindFriends(IEnumerable<ContactBindingModel> contacts)
         {
             var contactViewModels = new List<ContactViewModel>();

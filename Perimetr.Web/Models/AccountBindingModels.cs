@@ -51,12 +51,12 @@ namespace Perimetr.Web.Models
 
         [Required]
         [Display(Name ="First name")]
-        [StringLength(50, ErrorMessage ="The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(50, ErrorMessage ="The {0} must be at least {2} characters long.", MinimumLength = 2)]
         public string FirstName { get; set; }
 
         [Required]
         [Display(Name = "Last name")]
-        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
         public string LastName { get; set; }
     }
 

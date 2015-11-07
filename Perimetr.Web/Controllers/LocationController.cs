@@ -17,6 +17,10 @@ namespace Perimetr.Web.Controllers
     {
         private ApplicationUserManager _userManager;
 
+        public LocationController()
+        {
+        }
+
         public LocationController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
