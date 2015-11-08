@@ -103,8 +103,12 @@
     <Compile Include="Controls\PageHeader.xaml.cs">
       <DependentUpon>PageHeader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ObjectToVisibiltyConverter.cs" />
+    <Compile Include="Messages\GetFriendsMessage.cs" />
+    <Compile Include="Messages\GetMapPinsMessage.cs" />
     <Compile Include="Messages\NavigationMessage.cs" />
     <Compile Include="NavMenuItem.cs" />
+    <Compile Include="OpenMenuFlyoutAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FriendService.cs" />
     <Compile Include="Services\IFriendService.cs" />
@@ -115,6 +119,7 @@
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="ViewModels\FriendsViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
@@ -189,6 +194,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
+      <Name>Behaviors SDK %28XAML%29</Name>
+    </SDKReference>
     <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
       <Name>Microsoft Mobile Extension SDK for Universal App Platform</Name>
     </SDKReference>

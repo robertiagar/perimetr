@@ -7,11 +7,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    DataContext="{Binding MapFriend, Source={StaticResource Locator}}">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Maps:MapControl MapServiceToken="wQZskbWkOuz479a2WkfM~tycybrDG-25d10KWDDS7IQ~AvXIWEUL2rqVZj_1rQOVjIn_VEmtAYiBQ8hIWenatG7f47fjMmeVyw2usC02y6aa">
-            
+            <Maps:MapItemsControl ItemsSource="{Binding Friends}">
+                <Maps:MapItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Maps:MapControl.Location="{Binding Location}" Width="50" Height="5" Background="Black">
+                            <TextBlock Text="{Binding FirstName}"/>
+                        </Grid>
+                    </DataTemplate>
+                </Maps:MapItemsControl.ItemTemplate>
+            </Maps:MapItemsControl>
         </Maps:MapControl>
     </Grid>
 </Page>

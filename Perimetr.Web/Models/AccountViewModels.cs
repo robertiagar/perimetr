@@ -54,6 +54,9 @@ namespace Perimetr.Web.Models
     public class FriendViewModels
     {
         public string Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
         public LocationViewModel Location { get; set; }
     }
 

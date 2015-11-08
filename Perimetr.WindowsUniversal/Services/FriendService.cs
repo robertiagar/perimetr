@@ -13,6 +13,7 @@ namespace Perimetr.WindowsUniversal.Services
         private HttpClient client;
         private ISettingsService settingsService;
         private readonly string apiLocation = "api/Friends";
+        private readonly string baseAddress;
 
         public FriendService(ISettingsService settingsService, string baseAddress)
         {
@@ -24,27 +25,26 @@ namespace Perimetr.WindowsUniversal.Services
         public async Task AddFriendAsync(string friendId)
         {
             await AddAuthorizationHeadersAsync();
-            var response = await this.client.PostAsync(string.Format("/AddFriend?friendId={0}", friendId), null);
+            var response = await this.client.PostAsync(string.Format("{0}/AddFriend?friendId={1}", apiLocation, friendId), null);
             try
             {
                 response.EnsureSuccessStatusCode();
             }
-            catch
+            catch(Exception ex)
             {
                 //upsie
             }
         }
 
-
-
         public async Task<IEnumerable<ContactView>> FindFriendsAsync(IEnumerable<ContactBinding> contacts)
         {
             await AddAuthorizationHeadersAsync();
-            this.client.DefaultRequestHeaders.Add("Content-type", "application/json");
             var content = JsonConvert.SerializeObject(contacts);
             var stringContent = new StringContent(content);
+            stringContent.Headers.Clear();
+            stringContent.Headers.Add("Content-type", "application/json");
 
-            var response = await this.client.PostAsync("/FindFriends", stringContent);
+            var response = await this.client.PostAsync(string.Format("{0}/FindFriends", apiLocation), stringContent);
             try
             {
                 if (response.EnsureSuccessStatusCode().IsSuccessStatusCode)
@@ -65,7 +65,7 @@ namespace Perimetr.WindowsUniversal.Services
         public async Task<IEnumerable<FriendView>> GetFriendsAsync()
         {
             await AddAuthorizationHeadersAsync();
-            var jsonResponse = await this.client.GetStringAsync("");
+            var jsonResponse = await this.client.GetStringAsync(apiLocation);
             return JsonConvert.DeserializeObject<IEnumerable<FriendView>>(jsonResponse);
         }
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using Perimetr.WindowsUniversal.Messages;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +27,11 @@ namespace Perimetr.WindowsUniversal.Views
         public FriendsPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Messenger.Default.Send(new GetFriendsMessage());
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Perimetr.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,7 +16,8 @@ namespace Perimetr.Web.Controllers
     [RoutePrefix("api/Location")]
     public class LocationController : ApiController
     {
-        private ApplicationUserManager _userManager;
+        private ApplicationUserManager userManager;
+        private ApplicationDbContext dbContext;
 
         public LocationController()
         {
@@ -30,34 +32,56 @@ namespace Perimetr.Web.Controllers
         {
             get
             {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
-                _userManager = value;
+                userManager = value;
             }
+        }
+
+        public ApplicationDbContext DbContext
+        {
+            get { return dbContext ?? Request.GetOwinContext().Get<ApplicationDbContext>(); }
+            private set { dbContext = value; }
         }
 
         [Route("UpdateLocation")]
         public async Task<IHttpActionResult> UpdateLocation(LocationBindingModel model)
         {
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            user.Location = new LocationModel
+            
+            int updateResult = -1;
+            if (user.Location == null)
             {
-                Latitude = model.Latitude,
-                Longitude = model.Longitude,
-                Altitude = model.Altitude,
-                LastUpdated = DateTime.Now
-            };
+                var location = new LocationModel
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Latitude = model.Latitude,
+                    Longitude = model.Longitude,
+                    Altitude = model.Altitude,
+                    LastUpdated = DateTime.Now
+                };
 
-            var updateResult = await UserManager.UpdateAsync(user);
+                DbContext.LocationModels.Add(location);
 
-            if (updateResult.Succeeded)
+                updateResult = await DbContext.SaveChangesAsync();
+            }
+            else
+            {
+                user.Location.Altitude = model.Altitude;
+                user.Location.LastUpdated = DateTime.Now;
+                user.Location.Latitude = model.Latitude;
+                user.Location.Longitude = model.Longitude;
+                updateResult = await DbContext.SaveChangesAsync();
+            }
+
+            if (updateResult != 0)
             {
                 return Ok();
             }
 
-            return InternalServerError(new Exception(string.Join("\n\r", updateResult.Errors.ToArray())));
+            return BadRequest();
         }
     }
 }

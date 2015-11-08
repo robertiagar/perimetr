@@ -17,6 +17,8 @@ namespace Perimetr.WindowsUniversal.ViewModels
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register<LoginViewModel>();
+            SimpleIoc.Default.Register<FriendsViewModel>();
+            SimpleIoc.Default.Register<MapViewModel>();
             SimpleIoc.Default.Register<ILoginService>(() =>
             {
                 return new LoginService(baseUrl);
@@ -35,6 +37,16 @@ namespace Perimetr.WindowsUniversal.ViewModels
         public LoginViewModel Login
         {
             get { return SimpleIoc.Default.GetInstance<LoginViewModel>(); }
+        }
+
+        public FriendsViewModel Friends
+        {
+            get { return SimpleIoc.Default.GetInstance<FriendsViewModel>(); }
+        }
+
+        public MapViewModel MapFriend
+        {
+            get { return SimpleIoc.Default.GetInstance<MapViewModel>(); }
         }
     }
 }

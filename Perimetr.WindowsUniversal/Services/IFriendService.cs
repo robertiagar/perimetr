@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Perimetr.WindowsUniversal.Services
 {
@@ -22,6 +23,11 @@ namespace Perimetr.WindowsUniversal.Services
 
     public class FriendView
     {
+        public string FirstName { get; set; }
+        public string FirstNameLetter { get { return FirstName[0].ToString(); } }
+        public string LastName { get; set; }
+        public string LastNameLetter { get { return LastName[0].ToString(); } }
+        public string Email { get; set; }
         public string Id { get; set; }
         public LocationView Location { get; set; }
     }
@@ -38,7 +44,9 @@ namespace Perimetr.WindowsUniversal.Services
     {
         public string Email { get; set; }
         public string FirstName { get; set; }
+        public string FirstNameLetter { get { return FirstName[0].ToString(); } }
         public string LastName { get; set; }
+        public string LastNameLetter { get { return LastName[0].ToString(); } }
         public IList<PossibleFriendView> PossibleFriends { get; private set; }
 
         public ContactView()
@@ -58,5 +66,6 @@ namespace Perimetr.WindowsUniversal.Services
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public ICommand AddFriendCommand { get; set; }
     }
 }

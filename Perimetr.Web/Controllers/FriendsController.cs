@@ -51,13 +51,16 @@ namespace Perimetr.Web.Controllers
                 friendsViewModel.Add(new FriendViewModels
                 {
                     Id = friend.Id,
-                    Location = new LocationViewModel
+                    FirstName = friend.FirstName,
+                    LastName = friend.LastName,
+                    Email = friend.Email,
+                    Location = friend.Location != null ? new LocationViewModel
                     {
                         Altitude = friend.Location.Altitude,
                         Latitude = friend.Location.Latitude,
                         Longitude = friend.Location.Longitude,
                         LastUpdated = friend.Location.LastUpdated
-                    }
+                    } : null
                 });
             }
 
@@ -75,7 +78,12 @@ namespace Perimetr.Web.Controllers
             {
                 user.Friends.Add(friend);
 
-                return Ok();
+                var result = await UserManager.UpdateAsync(user);
+                if (result.Succeeded)
+                    return Ok();
+                else
+                    return BadRequest(string.Join("\n\r", result.Errors));
+
             }
 
             return BadRequest("User does not exist");
@@ -103,14 +111,17 @@ namespace Perimetr.Web.Controllers
                     Id = usr.Id
                 }));
 
-                var contactViewModel = new ContactViewModel
+                if (possibleMatches.Count != 0)
                 {
-                    Email = contact.Email,
-                    FirstName = contact.FirstName,
-                    LastName = contact.LastName
-                };
-                contactViewModel.AddPossibleFriends(possibleMatches);
-                contactViewModels.Add(contactViewModel);
+                    var contactViewModel = new ContactViewModel
+                    {
+                        Email = contact.Email,
+                        FirstName = contact.FirstName,
+                        LastName = contact.LastName
+                    };
+                    contactViewModel.AddPossibleFriends(possibleMatches);
+                    contactViewModels.Add(contactViewModel);
+                }
             }
 
             return Json(contactViewModels);
