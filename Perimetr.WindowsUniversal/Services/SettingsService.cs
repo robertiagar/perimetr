@@ -39,9 +39,9 @@ namespace Perimetr.WindowsUniversal.Services
         {
             var file = await GetStorageFileAsync();
             var fileText = await FileIO.ReadTextAsync(file);
-            var json = JObject.Parse(fileText);
             try
             {
+                var json = JObject.Parse(fileText);
                 return json[key].ToObject<T>();
             }
             catch
