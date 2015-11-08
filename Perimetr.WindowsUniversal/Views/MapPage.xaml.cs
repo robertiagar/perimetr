@@ -1,10 +1,13 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using Perimetr.WindowsUniversal.Messages;
+using Perimetr.WindowsUniversal.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Geolocation.Geofencing;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -32,6 +35,21 @@ namespace Perimetr.WindowsUniversal.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Messenger.Default.Send(new GetMapPinsMessage());
+
+            SimpleIoc.Default.Register<GeofencingService>(() =>
+            {
+                return new GeofencingService(StateChanged, StatusChanged, Dispatcher);
+            }, true);
+        }
+
+        private void StatusChanged(GeofenceMonitor sender, object args)
+        {
+            ;//upsie
+        }
+
+        private void StateChanged(GeofenceMonitor sender, object args)
+        {
+            ;//upsie
         }
     }
 }

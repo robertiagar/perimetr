@@ -107,10 +107,12 @@
     <Compile Include="Messages\GetFriendsMessage.cs" />
     <Compile Include="Messages\GetMapPinsMessage.cs" />
     <Compile Include="Messages\NavigationMessage.cs" />
+    <Compile Include="Messages\SetupGeofencingMessage.cs" />
     <Compile Include="NavMenuItem.cs" />
     <Compile Include="OpenMenuFlyoutAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FriendService.cs" />
+    <Compile Include="Services\GeofencingService.cs" />
     <Compile Include="Services\IFriendService.cs" />
     <Compile Include="Services\ILocationService.cs" />
     <Compile Include="Services\ILoginService.cs" />
@@ -201,7 +203,12 @@
       <Name>Microsoft Mobile Extension SDK for Universal App Platform</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Perimetr.BackgroundTasks\Perimetr.BackgroundTasks.csproj">
+      <Project>{7ac5740b-67e6-4193-b8e6-91316b701f1c}</Project>
+      <Name>Perimetr.BackgroundTasks</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -8,6 +8,7 @@ using Windows.Phone.UI.Input;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
+using Windows.Devices.Geolocation.Geofencing;
 
 namespace Perimetr.WindowsUniversal
 {
@@ -67,6 +68,7 @@ namespace Perimetr.WindowsUniversal
                 // When the navigation stack isn't restored, navigate to the first page
                 // suppressing the initial entrance animation.
                 var settings = SimpleIoc.Default.GetInstance<ISettingsService>();
+                
                 var access_token = await settings.ReadItemAsync<string>("access_token");
                 if (string.IsNullOrEmpty(access_token))
                     shell.AppFrame.Navigate(typeof(Views.LoginPage), e.Arguments, new Windows.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo());
@@ -77,6 +79,8 @@ namespace Perimetr.WindowsUniversal
             // Ensure the current window is active
             Window.Current.Activate();
         }
+
+       
 
         /// <summary>
         /// Invoked when Navigation to a certain page fails

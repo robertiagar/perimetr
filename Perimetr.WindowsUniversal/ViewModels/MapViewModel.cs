@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using Perimetr.WindowsUniversal.Messages;
 using Perimetr.WindowsUniversal.Services;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
+using Windows.Devices.Geolocation.Geofencing;
 
 namespace Perimetr.WindowsUniversal.ViewModels
 {
@@ -31,10 +33,17 @@ namespace Perimetr.WindowsUniversal.ViewModels
             {
                 this.friends.Add(new MapFriendViewModel
                 {
+                    Id = friend.Id,
                     FirstName = friend.FirstName,
+                    LastName = friend.LastName,
+                    LastUpdated = friend.Location != null ? friend.Location.LastUpdated : DateTime.MinValue,
                     Location = friend.Location.ToGeolocation()
                 });
             }
+
+            var geofenceMessage = new SetupGeofencingMessage(this.friends);
+
+            Messenger.Default.Send(geofenceMessage);
         }
 
         public IList<MapFriendViewModel> Friends { get { return friends; } }
@@ -44,6 +53,12 @@ namespace Perimetr.WindowsUniversal.ViewModels
     public class MapFriendViewModel
     {
         public string FirstName { get; set; }
+        public string FirstNameLetter { get { return FirstName[0].ToString(); } }
+
+        public string Id { get; set; }
+        public string LastName { get; set; }
+        public string LastNameLetter { get { return LastName[0].ToString(); } }
+        public DateTime LastUpdated { get; set; }
         public Geopoint Location { get; set; }
     }
 
