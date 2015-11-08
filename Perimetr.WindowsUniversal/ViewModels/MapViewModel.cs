@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
 using Perimetr.WindowsUniversal.Messages;
 using Perimetr.WindowsUniversal.Services;
 using System;
@@ -17,11 +18,14 @@ namespace Perimetr.WindowsUniversal.ViewModels
     {
         private IFriendService friendService;
         private ObservableCollection<MapFriendViewModel> friends;
+        private Geolocator _geolocator;
+        private MeViewModel me;
 
         public MapViewModel(IFriendService friendService)
         {
             this.friendService = friendService;
             this.friends = new ObservableCollection<MapFriendViewModel>();
+            this.me = new MeViewModel();
             MessengerInstance.Register<GetMapPinsMessage>(this, async message => await GetFriendsAsync());
         }
 
@@ -41,9 +45,43 @@ namespace Perimetr.WindowsUniversal.ViewModels
                 });
             }
 
-            var geofenceMessage = new SetupGeofencingMessage(this.friends);
+            AddMe();
 
+            var geofenceMessage = new SetupGeofencingMessage(this.friends);
             Messenger.Default.Send(geofenceMessage);
+        }
+
+        private void AddMe()
+        {
+            _geolocator = new Geolocator { ReportInterval = 2000 };
+
+            // Subscribe to PositionChanged event to get updated tracking positions
+            _geolocator.PositionChanged += OnPositionChanged;
+
+            // Subscribe to StatusChanged event to get updates of location status changes
+            _geolocator.StatusChanged += OnStatusChanged;
+        }
+
+        private void OnStatusChanged(Geolocator sender, StatusChangedEventArgs args)
+        {
+        }
+
+        private async void OnPositionChanged(Geolocator sender, PositionChangedEventArgs args)
+        {
+            var position = await sender.GetGeopositionAsync();
+            me.Location = position;
+            var je = new MapFriendViewModel
+            {
+                FirstName = "Me",
+                LastName = "Me",
+                Location = me.Location.Coordinate.Point,
+                LastUpdated = DateTime.Now
+            };
+
+            await DispatcherHelper.RunAsync(() =>
+            {
+                friends.Add(je);
+            });
         }
 
         public IList<MapFriendViewModel> Friends { get { return friends; } }
@@ -60,6 +98,19 @@ namespace Perimetr.WindowsUniversal.ViewModels
         public string LastNameLetter { get { return LastName[0].ToString(); } }
         public DateTime LastUpdated { get; set; }
         public Geopoint Location { get; set; }
+    }
+
+    public class MeViewModel : ObservableObject
+    {
+        private Geoposition location;
+        public Geoposition Location
+        {
+            get { return location; }
+            set
+            {
+                Set(nameof(Location), ref location, value);
+            }
+        }
     }
 
     public static class Extensions

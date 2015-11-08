@@ -9,6 +9,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Windows.Devices.Geolocation.Geofencing;
+using GalaSoft.MvvmLight.Threading;
 
 namespace Perimetr.WindowsUniversal
 {
@@ -78,6 +79,8 @@ namespace Perimetr.WindowsUniversal
 
             // Ensure the current window is active
             Window.Current.Activate();
+
+            DispatcherHelper.Initialize();
         }
 
        
