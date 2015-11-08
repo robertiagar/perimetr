@@ -36,10 +36,17 @@ namespace Perimetr.WindowsUniversal.Views
         {
             Messenger.Default.Send(new GetMapPinsMessage());
 
-            SimpleIoc.Default.Register<GeofencingService>(() =>
+            try
             {
-                return new GeofencingService(StateChanged, StatusChanged, Dispatcher);
-            }, true);
+                SimpleIoc.Default.Register<GeofencingService>(() =>
+                {
+                    return new GeofencingService(StateChanged, StatusChanged, Dispatcher);
+                }, true);
+            }
+            catch
+            {
+                //registered
+            }
         }
 
         private void StatusChanged(GeofenceMonitor sender, object args)
