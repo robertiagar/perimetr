@@ -20,6 +20,7 @@ namespace Perimetr.WindowsUniversal.ViewModels
         private ObservableCollection<MapFriendViewModel> friends;
         private Geolocator _geolocator;
         private MeViewModel me;
+        private MapFriendViewModel je;
 
         public MapViewModel(IFriendService friendService)
         {
@@ -70,18 +71,41 @@ namespace Perimetr.WindowsUniversal.ViewModels
         {
             var position = await sender.GetGeopositionAsync();
             me.Location = position;
-            var je = new MapFriendViewModel
+            if (this.je != null)
             {
-                FirstName = "Me",
-                LastName = "Me",
-                Location = me.Location.Coordinate.Point,
-                LastUpdated = DateTime.Now
-            };
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    friends.Remove(je);
+                });
 
-            await DispatcherHelper.RunAsync(() =>
+                this.je = new MapFriendViewModel
+                {
+                    FirstName = "Me",
+                    LastName = "Me",
+                    Location = me.Location.Coordinate.Point,
+                    LastUpdated = DateTime.Now
+                };
+
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    friends.Add(this.je);
+                });
+            }
+            else
             {
-                friends.Add(je);
-            });
+                this.je = new MapFriendViewModel
+                {
+                    FirstName = "Me",
+                    LastName = "Me",
+                    Location = me.Location.Coordinate.Point,
+                    LastUpdated = DateTime.Now
+                };
+
+                await DispatcherHelper.RunAsync(() =>
+                {
+                    friends.Add(this.je);
+                });
+            }
         }
 
         public IList<MapFriendViewModel> Friends { get { return friends; } }
